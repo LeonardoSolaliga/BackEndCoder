@@ -1,3 +1,4 @@
+let fs =require("fs");
 
 class Contenedor{
     constructor(ruta){
