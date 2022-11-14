@@ -76,14 +76,14 @@ async function inicio(){
     let conten=new Contenedor('./productos.txt');
     let allProducts=await conten.getAll();
     console.log(allProducts);
-    let producto1 = {"title":"The mount", "price": 4520, "thumbnail":"image3.png"};
-    await conten.save(producto1);
+    //let producto1 = {"title":"The mount", "price": 4520, "thumbnail":"image3.png"};
+    //await conten.save(producto1);
 
 
-    let productoID=await conten.getById(2);
-    console.log(productoID);
-    await conten.deleteById(1);
-    await conten.deleteAll();
+    //let productoID=await conten.getById(2);
+    //console.log(productoID);
+    //await conten.deleteById(1);
+    //await conten.deleteAll();
     
 }
 inicio();

@@ -9,6 +9,12 @@
     "title": "Destiny",
     "price": 5520,
     "thumbnail": "image3.png",
+    "id": 1
+  },
+  {
+    "title": "The mount",
+    "price": 4520,
+    "thumbnail": "image3.png",
     "id": 2
   },
   {
@@ -16,11 +22,5 @@
     "price": 4520,
     "thumbnail": "image3.png",
     "id": 3
-  },
-  {
-    "title": "The mount",
-    "price": 4520,
-    "thumbnail": "image3.png",
-    "id": 4
   }
 ]
