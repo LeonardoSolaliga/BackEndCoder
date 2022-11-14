@@ -2,7 +2,7 @@ let Contenedor = require('./contenedor.js');
 
 let conten=new Contenedor('./productos.txt');
 let express=require("express");
-let PORT=3001;
+let PORT=8080;
 let app=express();
 
 
