@@ -26,7 +26,7 @@ class Contenedor{
         const productos=await this.getAll();
         if(productos.length!=null){
             let producto=productos.filter(elem=>elem.id===id)
-            return producto ? producto:null;
+            return producto ? producto:producto=null;
         }
     }
     async getAll(){
@@ -68,22 +68,19 @@ class Contenedor{
         }
 
     }
+    async actualizar(producto){
+        let productos = await this.getAll();
+        productos.map(function(item){
+            if(item.id === producto.id){
+                item.title = producto.title,
+                item.price = producto.price,
+                item.thumbnail = producto.thumbnail
+            }
+        })
+        await fs.promises.writeFile(this.ruta,JSON.stringify(productos,null,2))
+        return productos;
+    }
 
 }
-//crear funcion asyncrona, sino devuelve Promise { <pending> } 
-//porque termina antes de devolver la promesa
-async function inicio(){
-    let conten=new Contenedor('./productos.txt');
-    let allProducts=await conten.getAll();
-    console.log(allProducts);
-    let producto1 = {"title":"The mount", "price": 4520, "thumbnail":"image3.png"};
-    await conten.save(producto1);
 
-
-    //let productoID=await conten.getById(2);
-    //console.log(productoID);
-    //await conten.deleteById(1);
-    //await conten.deleteAll();
-    
-}
-inicio();
+module.exports = Contenedor;

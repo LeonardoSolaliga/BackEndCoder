@@ -1,0 +1,27 @@
+[
+  {
+    "title": "El kame",
+    "price": 2850,
+    "thumbnail": "Lagorra.png",
+    "id": 1
+  },
+  {
+    "title": "The mount",
+    "price": 4520,
+    "thumbnail": "image2.png",
+    "id": 2
+  },
+    {
+    "title": "The retorno",
+    "price": 8560,
+    "thumbnail": "image3.png",
+    "id": 3
+  },
+    {
+    "title": "El arco",
+    "price": 10500,
+    "thumbnail": "image4.png",
+    "id": 4
+  },
+
+]
