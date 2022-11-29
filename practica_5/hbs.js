@@ -23,7 +23,8 @@ app.get("/", (req, res)=>{
 app.get('/productos',async(req,res,next) => {
     let allProducts = await productos.getAll()
     let productLength=allProducts?.length>0 ? true:false;
-    res.render("productos",{allProducts,productLength})
+    let productLenghFalse=allProducts?.length>0 ? false:true;
+    res.render("productos",{allProducts,productLength,productLenghFalse})
 })
 
 app.post("/productos",async(req,res,next)=>{
