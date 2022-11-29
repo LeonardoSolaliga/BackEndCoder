@@ -28,5 +28,11 @@
     "price": "123213",
     "thumbnail": "hbs.js",
     "id": 4
+  },
+  {
+    "title": "pruebapug",
+    "price": "123123213",
+    "thumbnail": "pug.js",
+    "id": 5
   }
 ]
