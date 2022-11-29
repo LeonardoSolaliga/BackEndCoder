@@ -1,0 +1,19 @@
+<div>
+    <% if (productLength){%>
+        <table>
+            <tr style="border: 1px solid black">
+                <th style="border: 1px solid black">title</th>
+                <th style="border: 1px solid black">price</th>
+                <th style="border: 1px solid black">thumbnail</th>
+            </tr>
+            <% allProducts.forEach(function(producto) {%>
+                <tr style="border: 1px solid black">
+                    <td style="border: 1px solid black"><%= producto.title %></td>
+                    <td style="border: 1px solid black"><%= producto.price %></td>
+                    <td style="border: 1px solid black"><%= producto.thumbnail %></td>
+                </tr>
+            <% })%>
+        </table>
+    <% } %>
+    <a href="/"><button>Ir a formulario de Carga</button></a>
+</div>

@@ -13,4 +13,20 @@ app.use(express.json())
 app.set("views","./views/ejs");
 app.set("view engine","ejs")
 
+app.get("/", (req, res)=>{
+    res.render("index",{});
+});
+
+app.get('/productos',async(req,res,next) => {
+    let allProducts = await productos.getAll()
+    let productLength=allProducts?.length>0 ? true:false;
+    res.render("productos",{allProducts,productLength})
+})
+
+app.post("/productos",async(req,res,next)=>{
+    let obj=req.body;
+    await productos.save(obj);
+    res.redirect("/productos")
+})
+
 app.listen(PORT);
