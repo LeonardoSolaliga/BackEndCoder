@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Existencia",
+    "price": 24020,
+    "thumbnail": "image1.png",
+    "id": 0
+  },
+  {
+    "title": "Destiny",
+    "price": 5520,
+    "thumbnail": "image3.png",
+    "id": 1
+  },
+  {
+    "title": "The mount",
+    "price": 4520,
+    "thumbnail": "image3.png",
+    "id": 2
+  },
+  {
+    "title": "The mount",
+    "price": 4520,
+    "thumbnail": "image3.png",
+    "id": 3
+  },
+  {
+    "title": "pruebahbs",
+    "price": "123213",
+    "thumbnail": "hbs.js",
+    "id": 4
+  }
+]

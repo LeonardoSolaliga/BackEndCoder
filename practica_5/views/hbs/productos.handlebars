@@ -1,0 +1,19 @@
+<div>
+    {{#if productLength}}
+        <table>
+            <tr style="border: 1px solid black">
+                <th style="border: 1px solid black">title</th>
+                <th style="border: 1px solid black">price</th>
+                <th style="border: 1px solid black">thumbnail</th>
+            </tr>
+            {{#each allProducts}}
+                <tr style="border: 1px solid black">
+                    <td style="border: 1px solid black">{{this.title}}</td>
+                    <td style="border: 1px solid black">{{this.price}}</td>
+                    <td style="border: 1px solid black">{{this.thumbnail}}</td>
+                </tr>
+            {{/each}}
+        </table>
+    {{/if}}
+    <a href="/"><button>Ir a formulario de Carga</button></a>
+</div>
