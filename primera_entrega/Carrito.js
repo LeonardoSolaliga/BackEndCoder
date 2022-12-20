@@ -57,6 +57,9 @@ class Carrito{
     }
     async agregarAlCarrito(carID,producto){
         const cart= await this.getById(Number(carID))
+        if(cart===0){
+            return null
+        }
         console.log(cart);
         const {id,timestamp,productos}=cart[0];
         productos.push(producto);
@@ -85,8 +88,28 @@ class Carrito{
     }
     async getAllProductos(cartid){
         const cart= await this.getById(Number(cartid))
+        if(cart.length===0){
+            return null;
+        }
         const {id,timestamp,productos}=cart[0];
         return productos;
+    }
+    async eliminarProducto(carid,producto){
+        const cart= await this.getById(Number(carid))
+        if(cart===0){
+            return null
+        }
+        const {id,timestamp,productos}=cart[0];
+        let arr=productos;
+        let prueba=arr.filter(elem=>elem.id!=producto.id)
+        console.log(prueba);
+        let carritos = await this.getAll();
+        carritos.map(function(item){
+            if(item.id === cart[0].id){
+                item.productos=prueba;
+            }
+        })
+        await fs.promises.writeFile(this.ruta,JSON.stringify(carritos,null,2))
     }
 
 }

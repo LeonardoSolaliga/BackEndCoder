@@ -10,15 +10,20 @@ module.exports = app =>{
     const Contenedor=require("../../Contenedor");
     const productos=new Contenedor(utils+"/productos.json");
     app.use("/api/carrito",router);
-    /*router.get("/id:/productos",async(req,res,next)=>{
-        let products = await productos.getAll();
-        res.json(products);
-    })*/
     router.get("/:id/productos",async(req,res,next)=>{
         const {id}=req.params;
-        let productos=await carritos.getAllProductos(Number(id));
-        res.json(productos);
-
+        let cart=await carritos.getAllProductos(Number(id));
+        if(cart){
+            if(cart==0){
+                res.json(400);
+                
+            }
+            else{
+                res.json(cart);
+            }
+        }else{
+            res.json(400);
+        }
     })
     router.post("/",async(req,res,next)=>{
         let carrito=await carritos.newCarrito();
@@ -48,6 +53,24 @@ module.exports = app =>{
         }
         else{
             res.json({error: "error",description:"carrito a eliminar no encontrado"});
+        }
+    })
+        router.get("/",async(req,res,next)=>{
+        let products = await productos.getAll();
+        res.json(products);
+    })
+    router.delete("/:id/productos/:id_prod",async(req,res,next)=>{
+        let {id}=req.params;
+        let {id_prod}=req.params;
+        const cart=await carritos.getById(Number(id));
+        let productoDelet=await productos.getById(Number(id_prod));
+
+        if(cart && productoDelet){
+            await carritos.eliminarProducto(Number(id),productoDelet[0]);
+            res.json({producto: productoDelet})
+        }
+        else{
+            res.json(400);
         }
     })
 
