@@ -4,23 +4,21 @@ class Contenedor{
     constructor(ruta){
         this.ruta=ruta;
     }
-    async save(objeto){
-
-        const productos=await this.getAll();
-        objeto.id = productos.length === 0 ? 1 : objeto.id = productos[productos.length - 1].id + 1//ingreso al ultimo item del array y le sumo 1 a su id al nuevo objeto, para que nunca se repita
-        //objeto.id=productos.length===0 ? 0:(productos.length); en esta linea si borraba un item luego los numeros se terminaban repitiendo el id
-        productos.push(objeto);
-        try{
-            await fs.promises.writeFile(this.ruta, JSON.stringify(productos, null, 2))
-            console.log("se ha guardado");
-
-        }catch(error){
-
-            console.log(error);
-
+    async saveProduct(object){
+        const products = await this.getAll()
+        object.id = parseInt(object.id) 
+        object.id = this.checkId(object, products)
+        object.price = parseInt(object.price)
+        try {
+            console.log(`El siguiente elemento sera guardado : \n${JSON.stringify(object)}`)
+            products.push(object)
+            await fs.writeFile(this.route, JSON.stringify(products, null, 2))
+            console.log('Guardado exitoso')
+            return object
+        } catch (error) {
+            console.error('Error de escritura')
+            console.error(error)
         }
-
-
     }
     async getById(id){
         const productos=await this.getAll();

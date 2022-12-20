@@ -20,17 +20,7 @@ app.get("/", (req, res)=>{
     res.render("formulario",{});
 });
 
-app.get('/productos',async(req,res,next) => {
-    let allProducts = await productos.getAll()
-    let productLength=allProducts?.length>0 ? true:false;
-    let productLenghFalse=allProducts?.length>0 ? false:true;
-    res.render("productos",{allProducts,productLength,productLenghFalse})
-})
 
-app.post("/productos",async(req,res,next)=>{
-    let obj=req.body;
-    await productos.save(obj);
-    res.redirect("/productos")
-})
+
 
 app.listen(PORT);
