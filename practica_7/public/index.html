@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>CHAT SOCKET</h1>
+    <div>
+        <h3>Ingrese datos del producto</h3>
+        <form id="newProduct" action="" method="post">
+            Title: <input id="title" type="text" name="title" required>
+            Price: <input id="price" type="number" name="price" required>
+            Thumbnail : <input id="thumbnail" type="text" name="thumbnail" required>
+            <button>Enviar</button>
+        </form>
+    </div>
+    <div id="container-products">
+        
+    </div>
+    <div>
+        <h3>CHAT</h3>
+        <form id="newMensaje" action="" method="post">
+            email: <input id="correo" type="email" name="email" required>
+            mensaje: <input id="mensaje" type="text" name="mensaje" required>
+            <button>Enviar</button>
+        </form>
+    </div>
+    <div id="container-chat">
+
+    </div>
+
+
+
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+</body>
+    
+</html>
