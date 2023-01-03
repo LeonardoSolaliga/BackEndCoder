@@ -22,15 +22,14 @@ class ContenedorSQL{
             console.log("se ha guardado");
 
         }catch(error){
-            console.log("lalalalala")
             console.log(error);
 
         }
     }
     async getAll(){
         try{
-            await this.knex(this.tabla).select("*")
-            this.disconnect();
+            return await this.knex(this.tabla).select("*")
+                .finally(async()=>this.disconnect());
             
         }
         catch(error){
@@ -42,7 +41,7 @@ class ContenedorSQL{
     async getByID(id){
         try{
             const producto=await this.knex(this.tabla).select('*').where('id', id)
-            this.disconnect();
+                .finally(async()=>this.disconnect());
             return producto;
         }catch(error){
             console.log(error);
