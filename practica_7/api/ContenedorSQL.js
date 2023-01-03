@@ -9,7 +9,7 @@ class ContenedorSQL{
     }
     async save(objeto){
 
-        const products=await this.knex(this.tabla).select("*");
+        const products=await this.knex(this.tabla).select("*")
         objeto.id = products.length === 0 ? 1 : objeto.id = products[products.length - 1].id + 1//ingreso al ultimo item del array y le sumo 1 a su id al nuevo objeto, para que nunca se repita
         
         try{
@@ -17,7 +17,7 @@ class ContenedorSQL{
                 .finally(async()=>{
                     products.push(objeto)
                     await fs.promises.writeFile(this.ruta, JSON.stringify(products, null, 2))
-                    this.disconnect();})
+                    })
             
             console.log("se ha guardado");
 
@@ -29,7 +29,6 @@ class ContenedorSQL{
     async getAll(){
         try{
             return await this.knex(this.tabla).select("*")
-                .finally(async()=>this.disconnect());
             
         }
         catch(error){
@@ -41,7 +40,6 @@ class ContenedorSQL{
     async getByID(id){
         try{
             const producto=await this.knex(this.tabla).select('*').where('id', id)
-                .finally(async()=>this.disconnect());
             return producto;
         }catch(error){
             console.log(error);
@@ -54,15 +52,13 @@ class ContenedorSQL{
             console.log(error)
         }
     }
-    async saveMensaje(mensaje){
-        const msg=await this.knex(this.tabla).select("*");
+    async saveMensaje(mensaje){ 
         try {
-            await this.knex(this.table).insert(msg)
-                .finally(async () => {
-                    msg.push(mensaje)
-                    await fs.writeFile(this.route, JSON.stringify(msg, null, 2));
-                    this.disconnect();
-                })
+            const msg=await this.knex(this.tabla).select("*")
+            await this.knex(this.table).insert(mensaje)
+            
+            msg.push(mensaje)
+            await fs.writeFile(this.route, JSON.stringify(msg, null, 2));
         } catch (error) {
             console.error('Error de escritura')
             console.error(error)

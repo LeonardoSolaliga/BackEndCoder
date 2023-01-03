@@ -1,8 +1,5 @@
 
-let fs =require("fs");
-const knexLib=require("knex");
 const {sqlite3,mariaDB}=require("./options/config.js")
-//const table=require("./createTables.js");
 
 const express = require('express');
 const app = express()
@@ -30,12 +27,7 @@ app.use(express.json())
 httpServer.listen(PORT,()=>console.log("server abierto"))
 //websocket
 
-/*async function prueba(){
-    const probar=await products.getAll();
-    console.log(probar)
-}
-prueba();
-*/
+
 io.on("connection",async(socket)=>{
     socket.emit('UpdateProduct', await products.getAll());
     socket.emit('UpdateMensaje', await msg.getAll());
