@@ -64,5 +64,11 @@
     "title": "socketprueba",
     "price": 123123,
     "thumbnail": "asdasd.jpg"
+  },
+  {
+    "title": "pruebasql",
+    "price": "12321323",
+    "thumbnail": "sql.jpg",
+    "id": 12
   }
 ]

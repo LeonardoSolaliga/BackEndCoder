@@ -55,8 +55,7 @@ class ContenedorSQL{
     async saveMensaje(mensaje){ 
         try {
             const msg=await this.knex(this.tabla).select("*")
-            await this.knex(this.table).insert(mensaje)
-            
+            await this.knex(this.tabla).insert(mensaje)
             msg.push(mensaje)
             await fs.writeFile(this.route, JSON.stringify(msg, null, 2));
         } catch (error) {
