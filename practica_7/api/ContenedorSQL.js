@@ -56,8 +56,9 @@ class ContenedorSQL{
         try {
             const msg=await this.knex(this.tabla).select("*")
             await this.knex(this.tabla).insert(mensaje)
-            msg.push(mensaje)
-            await fs.writeFile(this.route, JSON.stringify(msg, null, 2));
+            msg.push(mensaje);
+            console.log(msg);
+            await fs.promises.writeFile(this.ruta, JSON.stringify(msg, null, 2));
         } catch (error) {
             console.error('Error de escritura')
             console.error(error)
