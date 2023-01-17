@@ -1,0 +1,176 @@
+-Inicio mongo en cmd(probe con mongo pero no funciona pero mongosh funciona)
+mongosh
+
+-Veo las databases
+show dbs
+
+1) Agregar 10 documentos con valores distintos en mensajes y productos.
+
+use ecommerce
+db.mensajes.insertMany([
+  {
+    "email": "dsdsd@qweqwe",
+    "hora": "8/12/2022, 11:26:52",
+    "mensaje": "buenas"
+  },
+  {
+    "email": "dasdasd@asdasd",
+    "hora": "8/12/2022, 11:27:07",
+    "mensaje": "Hola buenas tardes a todos"
+  },
+  {
+    "email": "asdasd@qweqwe",
+    "hora": "8/12/2022, 11:45:03",
+    "mensaje": "como estan"
+  },
+  {
+    "email": "asdasd@qwedsdsd",
+    "hora": "8/12/2022, 11:46:12",
+    "mensaje": "bien, buen dia!!"
+  },
+  {
+    "email": "sql@hotmail.com",
+    "hora": "3/1/2023, 11:36:40",
+    "mensaje": "prueba sql"
+  },
+  {
+    "email": "mysql@hotmail.com",
+    "hora": "3/1/2023, 11:51:50",
+    "mensaje": "prueba sql 2"
+  },
+  {
+    "email": "sqlite3@hotmail.com",
+    "hora": "3/1/2023, 11:52:49",
+    "mensaje": "prueba sql"
+  },
+  {
+    "email": "sqlite3@hotmail.com",
+    "hora": "3/1/2023, 11:53:45",
+    "mensaje": "prueba sql 3"
+  },
+  {
+    "email": "sql@hotmail.com",
+    "hora": "3/1/2023, 11:54:21",
+    "mensaje": "asdasdqwv"
+  },
+  {
+    "email": "sql@hotmail.com",
+    "hora": "3/1/2023, 11:56:14",
+    "mensaje": "prueba def"
+  }
+])
+db.productos.insertMany([
+  {
+    "id": 1,
+    "title": "Destiny",
+    "price": 1000,
+    "thumbnail": "image3.png"
+  },
+  {
+    "id": 2,
+    "title": "The mount",
+    "price": 120,
+    "thumbnail": "image3.png"
+  },
+  {
+    "id": 3,
+    "title": "The mount",
+    "price": 580,
+    "thumbnail": "image3.png"
+  },
+  {
+    "id": 4,
+    "title": "pruebahbs",
+    "price": 900,
+    "thumbnail": "hbs.js"
+  },
+  {
+    "id": 5,
+    "title": "pruebapug",
+    "price": 1280,
+    "thumbnail": "pug.js"
+  },
+  {
+    "id": 6,
+    "title": "pruebaejs",
+    "price": 1700,
+    "thumbnail": "ejs.js"
+  },
+  {
+    "id": 7,
+    "title": "socket",
+    "price": 4990,
+    "thumbnail": "socket.io"
+  },
+  {
+    "id": 8,
+    "title": "sockethandle",
+    "price": 3350,
+    "thumbnail": "sockethand.io"
+  },
+  {
+    "id": 9,
+    "title": "pr",
+    "price": 2860,
+    "thumbnail": "hola"
+  },
+  {
+    "id": 10,
+    "title": "socket.io",
+    "price": 4320,
+    "thumbnail": "socket.iohandle"
+  }
+])
+
+3-Listar todos los documentos de cada coleccion
+
+db.productos.find()
+db.mensajes.find()
+
+4-Mostrar la cantidad de documentos en cada coleccion
+
+db.productos.estimatedDocumentCount()
+db.mensajes.estimatedDocumentCount()
+
+
+5- Realizar un crud
+A-Agregar un producto
+db.productos.insertOne({"name":"productoMongo","price":4500,"src":"ruotaMongo"})
+B-Realizar consulta por nombre de producto especifico:
+i)listar productos con precio menor a 1000pesos
+
+db.productos.find({"price":{$lte:1000}})
+
+ii)Listar productos entre 1000 y 3000
+
+db.productos.find({"price":{$gte:1000, $lte:3000}})
+
+iii)listar productos con precio mayor a 3000
+
+db.productos.find({"price":{$gte:3000}})
+
+iv)Realizar consulta que traiga el tercer producto mas barato
+
+db.productos.find().sort({"price":1}).limit(1).skip(2)
+
+C-hacer una actualizacion de todos los productos agregando el campo stock con valor 100
+
+db.productos.updateMany({}, {$set :{"stock" : 100}})
+db.productos.find()
+
+d- Cambiar el stock a 0 de los productos con precios a mayores a 4000
+
+db.productos.updateMany({"price":{$gte:4000}},{$set:{"stock":0}})
+
+e-borrar productos con menos de 1000 pesos
+
+db.productos.deleteMany({"price":{$lte:1000}})
+
+6)Crear un usuario:"pepe", con clave:"asd456" que solo pueda leer la base de datos del ecommerce
+
+use admin
+db.createUser({"user":"pepe","pwd":"asd456","roles":[{role:"read",db:"ecommerce"}]})
+
+
+
+
