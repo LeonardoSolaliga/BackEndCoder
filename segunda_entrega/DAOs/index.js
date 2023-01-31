@@ -1,5 +1,5 @@
-let productosFS=require("./Contenedor")
-let carritoFS=require("./Carrito")
+let productosFS=require("./filesystem/Contenedor")
+let carritoFS=require("./filesystem/Carrito")
 
 
 
@@ -13,11 +13,10 @@ function setPersistencia(persistencia){
                 products:"productos",
                 carts:"carrito"
             }
-        case "fs":
-            console.log("coneccion fs")
+        case "filesystem":
             return {
-                products:new productosFS("./DAOS/productos.json"),
-                carts:new carritoFS("./DAOS/carrito.json")
+                products:new productosFS("./DAOS/filesystem/productos.json"),
+                carts:new carritoFS("./DAOS/filesystem/carrito.json")
             }
 
     }

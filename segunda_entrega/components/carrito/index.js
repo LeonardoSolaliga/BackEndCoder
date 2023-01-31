@@ -1,22 +1,20 @@
 let {Router} = require("express");
 let router = new Router();
-let utils=require("../../utils")
-
+const setPersistance=require("../../DAOs/index")
+const container = setPersistance('filesystem');
+const APIproduct = container.products;
+const APIcart=container.carts;
 
 
 module.exports = app =>{
-    const Carrito=require("../../DAOs/Carrito");
-    const carritos=new Carrito(utils+"/DAOs/carrito.json");
-    const Contenedor=require("../../DAOs/Contenedor");
-    const productos=new Contenedor(utils+"/DAOs/productos.json");
     app.use("/api/carrito",router);
     router.get("/",async(req,res,next)=>{
-        let carrito = await carritos.getAll();
+        let carrito = await APIcart.getAll();
         res.json(carrito);
     })
     router.get("/:id/productos",async(req,res,next)=>{
         const {id}=req.params;
-        let cart=await carritos.getAllProductos(Number(id));
+        let cart=await APIcart.getAllProductos(Number(id));
         if(cart){
             if(cart==0){
                 res.json(400);
@@ -30,18 +28,18 @@ module.exports = app =>{
         }
     })
     router.post("/",async(req,res,next)=>{
-        let carrito=await carritos.newCarrito();
+        let carrito=await APIcart.newCarrito();
         res.json({carrito:carrito.id});
     })
     router.post("/:id/productos",async(req,res,next)=>{
         const {id}=req.params;
-        const cart=await carritos.getById(Number(id));
+        const cart=await APIcart.getById(Number(id));
         const bodyid=req.body;
         
-        let productoAdd=await productos.getById(Number(bodyid.id));
+        let productoAdd=await APIproduct.getById(Number(bodyid.id));
 
         if(cart && productoAdd){
-            await carritos.agregarAlCarrito(Number(id),productoAdd[0]);
+            await APIcart.agregarAlCarrito(Number(id),productoAdd[0]);
             res.json({producto: productoAdd})
         }
         else{
@@ -50,8 +48,8 @@ module.exports = app =>{
     })
     router.delete("/:id",async(req,res,next)=>{
         let {id}=req.params;
-        let cartEliminado=await carritos.getById(Number(id));
-        await carritos.deleteById(Number(id));
+        let cartEliminado=await APIcart.getById(Number(id));
+        await APIcart.deleteById(Number(id));
         if(cartEliminado){
             res.json({carrito: cartEliminado})
         }
@@ -63,11 +61,11 @@ module.exports = app =>{
     router.delete("/:id/productos/:id_prod",async(req,res,next)=>{
         let {id}=req.params;
         let {id_prod}=req.params;
-        const cart=await carritos.getById(Number(id));
-        let productoDelet=await productos.getById(Number(id_prod));
+        const cart=await APIcart.getById(Number(id));
+        let productoDelet=await APIproduct.getById(Number(id_prod));
 
         if(cart && productoDelet){
-            await carritos.eliminarProducto(Number(id),productoDelet[0]);
+            await APIcart.eliminarProducto(Number(id),productoDelet[0]);
             res.json({producto: productoDelet})
         }
         else{
