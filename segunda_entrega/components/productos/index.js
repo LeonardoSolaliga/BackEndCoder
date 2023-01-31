@@ -2,7 +2,7 @@ let {Router} = require("express");
 let router = new Router();
 //let utils=require("../../utils")
 const setPersistance=require("../../DAOs/index")
-const container = setPersistance('filesystem');
+const container = setPersistance('mongo');
 const APIproduct = container.products;
 const esAdmin = true;
 

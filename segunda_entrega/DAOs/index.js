@@ -1,6 +1,9 @@
 let productosFS=require("./filesystem/Contenedor")
 let carritoFS=require("./filesystem/Carrito")
 
+let productoMongo=require("./MongoDB/mongoproducts.js");
+//let carritoMongo=require("./MongoDB/mongocarts.js");
+
 
 
 
@@ -8,10 +11,9 @@ let carritoFS=require("./filesystem/Carrito")
 function setPersistencia(persistencia){
     switch(persistencia){
         case 'mongo' :
-            console.log("coneccion a mongodb")
             return{
-                products:"productos",
-                carts:"carrito"
+                products:new productoMongo
+                //carts:new carritoMongo
             }
         case "filesystem":
             return {

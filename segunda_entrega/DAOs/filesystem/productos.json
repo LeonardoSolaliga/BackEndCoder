@@ -28,5 +28,15 @@
     "stock": 13,
     "id": 3,
     "timestamp": "20/12/2022, 1:35:32"
+  },
+  {
+    "title": "El monte",
+    "price": 5560,
+    "thumbnail": "imagen.jpg",
+    "description": "descripcion del producto",
+    "codigo": "codigo del producto",
+    "stock": 50,
+    "id": 4,
+    "timestamp": "31/1/2023, 18:33:26"
   }
 ]
