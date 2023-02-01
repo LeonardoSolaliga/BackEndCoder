@@ -50,6 +50,14 @@ class ContenedorCartsMongo extends ContainerMongo {
             return [];
         }
     };
+    async getAllProductos(cartid){
+        const cart= await this.collection.find({cartId:Number(cartid)})
+        if(cart.length===0){
+            return null;
+        }
+        const {id,timestamp,productos}=cart[0];
+        return productos;
+    }
 
 };
 
