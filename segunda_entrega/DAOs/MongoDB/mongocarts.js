@@ -3,7 +3,7 @@ let ContainerMongo=require("./Mongodb.js");
 const cartSchema = new mongoose.Schema({
     cartId:{type:Number, required:true, default:0},
     timestamp:{type:String,required:true},
-    products: [{type: Object, required: true}]
+    productos: [{type: Object, required: true}]
 });
 
 class ContenedorCartsMongo extends ContainerMongo {
@@ -31,9 +31,12 @@ class ContenedorCartsMongo extends ContainerMongo {
 
     }
 
-    async agregarAlCarrito(cartId, product) {
-        let cart = [await this.collection.find({ cartId: cartId })];
-        console.log(cart);
+    async agregarAlCarrito(carrritoId, product) {
+        let cart= await this.collection.find({cartId:carrritoId})
+        const {id,timestamp,productos}=cart[0];
+        productos.push(product);
+        console.log(productos);
+        await this.collection.updateOne({cartId:carrritoId},{$set:{productos:productos}})
     };
     async getAll(){
         try{
