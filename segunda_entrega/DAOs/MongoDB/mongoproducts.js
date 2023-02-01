@@ -2,7 +2,6 @@ const mongoose=require("mongoose");
 let ContainerMongo=require("./Mongodb.js");
 
 const productsSchema = new mongoose.Schema({
-    productid: {type: Number, required: true},
     title: {type: String, required: true},
     price: {type: Number, required: true},
     thumbnail: {type: String, required: true},
@@ -21,7 +20,6 @@ class ContenedorProductsMongo extends ContainerMongo {
 
     async save(product) {
         const productos=await this.getAll();
-        productos=JSON.parse(productos);
         product.productid= productos.length === 0 ? 1 : product.productid = productos[productos.length - 1].productid + 1
         let today = new Date();
         let now = today.toLocaleString();
@@ -36,7 +34,7 @@ class ContenedorProductsMongo extends ContainerMongo {
             if (array===0){
                 return [];
             }
-            return JSON.parse(array);
+            return array;
         }catch(error){
             console.log(error);
             return [];
