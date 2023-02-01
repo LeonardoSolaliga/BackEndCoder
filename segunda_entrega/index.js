@@ -1,7 +1,10 @@
+//import express from "express";
+//import serverRoutes from "./routes";
+
 const express = require('express');
+const serverRoutes=require("./routes");
 const app = express()
 const PORT=process.env.PORT || 8080;
-let serverRoutes=require("./routes");
 
 
 

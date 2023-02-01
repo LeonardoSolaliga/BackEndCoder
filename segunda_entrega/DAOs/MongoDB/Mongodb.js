@@ -1,4 +1,7 @@
-let mongoose=require("mongoose");
+const mongoose=require("mongoose");
+//import mongoose from "mongoose";
+
+
 mongoose.set('strictQuery', true);
 try{
     mongoose.connect("mongodb+srv://CoderUserLeonardo:1234@codercluster38140.dbok9sm.mongodb.net/SegundaEntregaFinal?retryWrites=true&w=majority",error=>{
@@ -16,5 +19,4 @@ class ContainerMongo {
     };
 
 }
-
 module.exports = ContainerMongo;
