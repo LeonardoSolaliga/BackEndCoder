@@ -2,6 +2,7 @@ const mongoose=require("mongoose");
 let ContainerMongo=require("./Mongodb.js");
 
 const productsSchema = new mongoose.Schema({
+    Productid:{type:Number,required:true,default:0},
     title: {type: String, required: true},
     price: {type: Number, required: true},
     thumbnail: {type: String, required: true},
@@ -18,15 +19,18 @@ class ContenedorProductsMongo extends ContainerMongo {
     };
 
 
-    async save(product) {
+    async save(objeto) {
+        
         const productos=await this.getAll();
-        product.productid= productos.length === 0 ? 1 : product.productid = productos[productos.length - 1].productid + 1
+        objeto.Productid = productos.length === 0 ? 1 : objeto.Productid = productos[productos.length - 1].Productid + 1
+
         let today = new Date();
         let now = today.toLocaleString();
-        product.timestamp=now;
-        product.price=Number(product.price);
-        product.stock=Number(product.stock);
-        await this.collection.create(product);
+        objeto.timestamp=now;
+        objeto.price=Number(objeto.price);
+        objeto.stock=Number(objeto.stock);
+        console.log(objeto.Productid);
+        await this.collection.create(objeto);
     };
     async getAll(){
         try{
@@ -40,6 +44,11 @@ class ContenedorProductsMongo extends ContainerMongo {
             return [];
         }
     };
+    async getById(id){
+        let product=await this.collection.find({Productid:id})
+        return product;
+
+    }
 
 };
 
