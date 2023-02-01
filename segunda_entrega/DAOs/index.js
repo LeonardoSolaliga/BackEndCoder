@@ -2,7 +2,7 @@ let productosFS=require("./filesystem/Contenedor")
 let carritoFS=require("./filesystem/Carrito")
 
 let productoMongo=require("./MongoDB/mongoproducts.js");
-//let carritoMongo=require("./MongoDB/mongocarts.js");
+let carritoMongo=require("./MongoDB/mongocarts.js");
 
 //mport productosFS from "./filesystem/Contenedor.js"
 //import carritoFS from "./filesystem/Carrito.js"
@@ -15,8 +15,8 @@ function setPersistencia(persistencia){
     switch(persistencia){
         case 'mongo' :
             return{
-                products:new productoMongo
-                //carts:new carritoMongo
+                products:new productoMongo,
+                carts:new carritoMongo
             }
         case "filesystem":
             return {

@@ -1,7 +1,7 @@
 let {Router} = require("express");
 let router = new Router();
 const setPersistance=require("../../DAOs/index")
-const container = setPersistance('filesystem');
+const container = setPersistance('mongo');
 const APIproduct = container.products;
 const APIcart=container.carts;
 
@@ -29,7 +29,7 @@ module.exports = app =>{
     })
     router.post("/",async(req,res,next)=>{
         let carrito=await APIcart.newCarrito();
-        res.json({carrito:carrito.id});
+        res.json({carrito:carrito});
     })
     router.post("/:id/productos",async(req,res,next)=>{
         const {id}=req.params;
