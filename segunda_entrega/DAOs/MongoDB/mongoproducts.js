@@ -49,6 +49,14 @@ class ContenedorProductsMongo extends ContainerMongo {
         return product;
 
     }
+    async deleteById(id){
+        await this.collection.deleteOne({Productid:id});
+    }
+    async actualizar(producto){
+        let {id,title,price,thumbnail,stock}=producto;
+        await this.collection.updateOne({Productid:id},{$set:{title: title,price:price,thumbnail:thumbnail,stock:stock}})
+
+    }
 
 };
 
