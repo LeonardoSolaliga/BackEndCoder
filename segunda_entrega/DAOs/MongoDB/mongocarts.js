@@ -58,6 +58,17 @@ class ContenedorCartsMongo extends ContainerMongo {
         const {id,timestamp,productos}=cart[0];
         return productos;
     }
+    async eliminarProducto(carid,producto){
+        const cart= await this.getById(Number(carid))
+        if(cart===0){
+            return null
+        }
+        const {id,timestamp,productos}=cart[0];
+        let arr=productos;
+        let prueba=arr.filter(elem=>elem.Productid!=producto.Productid)
+        await this.collection.updateOne({cartId:carid},{$set:{productos:prueba}})
+        console.log(prueba);
+    }
 
 };
 
