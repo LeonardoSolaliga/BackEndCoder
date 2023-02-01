@@ -25,11 +25,15 @@ class ContenedorCartsMongo extends ContainerMongo {
         let newCart = await this.collection.create(cart);
         return newCart;
     };
+    async getById(id){
+        let product=await this.collection.find({Productid:id})
+        return product;
+
+    }
 
     async agregarAlCarrito(cartId, product) {
-        let cart = await this.collection.find({ _id: cartId });
-        let addedProd = await this.collection.find({ _id: cartId }, { cart: cart.products.push(product) });
-        return addedProd;
+        let cart = [await this.collection.find({ cartId: cartId })];
+        console.log(cart);
     };
     async getAll(){
         try{
