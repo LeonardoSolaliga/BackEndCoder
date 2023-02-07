@@ -1,6 +1,10 @@
 const express=require ("express");
 const app=express();
 const PORT=process.env.PORT || 8080;
+
+
+
+
 let serverRoutes=require("./routes");
 
 
@@ -10,9 +14,10 @@ app.use(express.static('public'));
 
 serverRoutes(app);
 
-
-
-
-
 app.listen(PORT,()=>console.log("server on"));
+
+
+
+
+
 
