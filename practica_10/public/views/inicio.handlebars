@@ -1,5 +1,10 @@
 <div>
     <h1>Bienvenido {{user.nombre}} </h1>
+    <div>
+        {{#if user.nombre}}
+            <button><a href="/logout">logout</a></button>
+        {{/if}}
+    </div>
     <h2>CHAT SOCKET</h2>
     <div>
         <h3>Ingrese datos del producto</h3>

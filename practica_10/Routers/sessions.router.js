@@ -15,6 +15,7 @@ router.post('/register',async(req,res)=>{
         password
     })
     res.send({status:"success",payload:result})
+    
 })
 
 router.post('/login',async(req,res)=>{
