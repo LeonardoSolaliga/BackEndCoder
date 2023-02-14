@@ -1,0 +1,69 @@
+import express from 'express';
+import session from 'express-session';
+import {Server as HttpServer} from 'http';
+import {Server as IOServer} from 'socket.io';
+import Contenedor from "./api/Contenedor.js";
+import Mensajes from "./api/mensajes.js"
+import handlebars from "express-handlebars";
+import MongoStore from 'connect-mongo';
+import mongoose from 'mongoose';
+import __dirname from './utils.js';
+import viewsRouter from './Routers/views.router.js';
+import sessionsRouter from './Routers/sessions.router.js';
+
+const productos=new Contenedor("./public/productos.txt");
+const msg=new Mensajes("./public/chat.txt")
+const app = express()
+const PORT = 8080;
+const httpServer = new HttpServer(app)
+const io = new IOServer(httpServer)
+
+//view engine
+app.engine('handlebars',handlebars.engine());
+app.set('views', `${__dirname}/public/views`);
+app.set('view engine','handlebars');
+
+app.use(express.static(`${__dirname}/public`));
+
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+httpServer.listen(PORT,()=>console.log("server abierto"))
+
+
+mongoose.set('strictQuery', true);
+try{
+    mongoose.connect("mongodb+srv://CoderUserLeonardo:1234@codercluster38140.dbok9sm.mongodb.net/sessions?retryWrites=true&w=majority",error=>{
+        if(error) console.log(error)
+        else console.log("base conectada")
+})
+}catch(error){
+    console.log(error);
+}
+app.use(session({
+    store: MongoStore.create({
+        mongoUrl:"mongodb+srv://CoderUserLeonardo:1234@codercluster38140.dbok9sm.mongodb.net/sessions?retryWrites=true&w=majority",
+        ttl:60
+    }),
+    secret: 'aspdiasc903ok1pkc',
+    resave: false,
+    saveUninitialized: false
+}));
+
+//websocket
+io.on("connection",async(socket)=>{
+    socket.emit('UpdateProduct', await productos.getAll());
+    socket.emit('UpdateMensaje', await msg.getAll());
+    socket.on('newproduct', async product => {
+        await productos.save(product)
+        io.emit('UpdateProduct', await productos.getAll())
+    })
+    socket.on('newMensaje', async mensaje => {
+        await msg.save(mensaje);
+        io.emit('UpdateMensaje', await msg.getAll());
+    })
+})
+
+app.use('/',viewsRouter);
+app.use('/api/sessions',sessionsRouter);
+export default session;
