@@ -169,7 +169,7 @@ db.productos.deleteMany({"price":{$lte:1000}})
 6)Crear un usuario:"pepe", con clave:"asd456" que solo pueda leer la base de datos del ecommerce
 
 use admin
-db.createUser({"user":"pepe","pwd":"asd456","roles":[{role:"read",db:"ecommerce"}]})
+db.createUser({"user":"pepe","pwd":"asd456","roles":["read"]})
 
 
 
