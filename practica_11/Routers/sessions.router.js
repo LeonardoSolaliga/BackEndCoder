@@ -38,4 +38,17 @@ router.get('/loginFail',async(req,res)=>{
     res.status(400).send({status:"error",error:"error de autentificacion"})
 })
 
+router.get('/github',passport.authenticate('github'),(req,res)=>{})
+
+router.get('/githubcallback',passport.authenticate('github'),(req,res)=>{
+    const user=req.user;
+    req.session.user = {
+        id: user._id,
+        nombre:user.first_name,
+        email:user.email,
+        role:user.role
+    }
+    res.send({status:"success",message:"Logueado con github :)"})
+})
+
 export default router;
