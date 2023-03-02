@@ -14,4 +14,17 @@ export const validatePassword=async(password,userPassword)=>{
     return bcrypt.compare(password,userPassword);
 }
 
+process.on('message', (param) => {
+    let result = {};
+    for (let i = 0; i < param; i++) {
+        const randomNum = Math.round(Math.random() * 1000);
+        if (!result[randomNum]) {
+            result[randomNum] = 1
+        } else {
+            result[randomNum]++
+        }
+    }
+    process.send(result);
+});
+
 export default __dirname;
