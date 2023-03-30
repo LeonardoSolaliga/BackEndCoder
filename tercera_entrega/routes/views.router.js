@@ -25,5 +25,9 @@ router.get('/logout',(req,res)=>{
         res.send(err);
     }
 })
+router.get('/profile',(req,res)=>{
+    console.log(req.session.user)
+    res.render('profile',{user:req.session.user})
+})
 
 export default router;

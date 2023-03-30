@@ -51,7 +51,8 @@ router.post('/login',passport.authenticate('login',{failureRedirect:'/api/sessio
         id: user._id,
         nombre:user.first_name,
         email:user.email,
-        role:user.role
+        role:user.role,
+        avatar:user.avatar
     }
     res.send({status:"success",message:"Logueado :)"})
 })

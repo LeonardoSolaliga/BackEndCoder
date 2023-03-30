@@ -3,9 +3,15 @@ const form = document.getElementById('loginForm');
 form.addEventListener('submit',async evt=>{
     evt.preventDefault();
     const data = new FormData(form);
-    const response = await fetch('/api/sessions/register',{
+    const obj = {};
+    data.forEach((value,key)=>obj[key]=value)
+
+    const response = await fetch('/api/sessions/login',{
         method:'POST',
-        body:data
+        body:JSON.stringify(obj),
+        headers:{
+            "Content-Type":"application/json"
+        }
     })
     const result = await response.json();
     if(result.status==="success")
