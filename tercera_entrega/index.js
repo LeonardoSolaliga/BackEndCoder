@@ -10,7 +10,6 @@ import viewsRouter from "./routes/views.router.js";
 import sessionsRouter from './routes/sessions.router.js';
 import productsRouter from "./routes/productos.js";
 import carritoRouter from "./routes/carrito.js";
-import mailRouter from "./routes/gmail.router.js"
 import passport from 'passport';
 import initializeStrategies from './config/passport.config.js';
 import { addLogger } from "./middlewares/logger.js";
@@ -77,7 +76,6 @@ app.use('/',viewsRouter);
 app.use('/api/sessions',sessionsRouter);
 app.use('/api/products',productsRouter)
 app.use('/api/carrito',carritoRouter);
-app.use('/api/correo',mailRouter);
 
 
 app.get('/pruebaLogger', (req, res) => {

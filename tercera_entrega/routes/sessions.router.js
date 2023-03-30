@@ -36,7 +36,7 @@ router.post('/register',uploader.single('avatar'),async(req,res)=>{
     })
     await transporter.sendMail({
         from:'Leo <leo.nosecuanto@gmail.com>',
-        to:"solaliga_84@hotmail.com",
+        to:email,
         subject:'Correo de prueba :)',
         html:`<div><h1 style="color:red;">se creo una cuenta :)</h1></div>`,
     })
