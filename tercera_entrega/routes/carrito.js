@@ -1,9 +1,23 @@
 import { Router } from "express";
 import setPersistance from "../DAOs/index.js"
+import nodemailer from 'nodemailer'
+
 let router = new Router();
 const container = setPersistance('mongo');
 const APIproduct = container.products;
 const APIcart = container.carts;
+
+const GMAIL_PWD = 'ishujxivijablmcl';
+const GMAIL_USER = "leo.nosecuanto@gmail.com";
+
+const transporter = nodemailer.createTransport({
+    service:'gmail',
+    port: 587,
+    auth: {
+        user: GMAIL_USER,
+        pass: GMAIL_PWD
+    }
+});
 
 
 router.get("/", async (req, res, next) => {
@@ -36,6 +50,27 @@ router.post("/", async (req, res, next) => {
     res.send({status: "success",message:"carrito creado",});
 })
 router.post("/finalizar", async (req, res, next) => {
+    let cart=await APIcart.getById(req.session.user.email)
+    let contenedor = ``;
+    let calculadora=0;
+    //console.log(cart[0].productos)
+    for (const producto of (cart[0].productos)) {
+        const prod = await APIproduct.getById(producto.Productid)
+        
+        if (prod) {
+            calculadora+=((prod[0].price)*producto.cantidad)
+            contenedor += `<span>Titulo:${prod[0].title}</span> <span>Price: $${prod[0].price}</span> <span>Cantidad:${producto.cantidad}</span> <span>Imagen: ${prod[0].thumbnail}</span></p>`
+        }
+
+        
+    }
+    contenedor+=`<span>PRECIO TOTAL:${calculadora}</span>`
+    await transporter.sendMail({
+        from:'Compra completada <leo.nosecuanto@gmail.com>',
+        to:req.session.user.email,
+        subject:'Correo de prueba :)',
+        html:`${contenedor}`,
+    })
     res.send({status: "success", message: "Compra finalizada"})
 })
 router.post("/:id/productos", async (req, res, next) => {
@@ -66,13 +101,13 @@ router.delete("/:id", async (req, res, next) => {
 })
 
 router.delete("/:id/productos/:id_prod", async (req, res, next) => {
-    let { id } = req.params;
-    let { id_prod } = req.params;
-    const cart = await APIcart.getById(Number(id));
+    let {id} = req.params;
+    let {id_prod} = req.params;
+    const cart = await APIcart.getById(id);
     let productoDelet = await APIproduct.getById(Number(id_prod));
 
     if (cart && productoDelet) {
-        await APIcart.eliminarProducto(Number(id), productoDelet[0]);
+        await APIcart.eliminarProducto(id, productoDelet[0]);
         res.json({ producto: productoDelet })
     }
     else {

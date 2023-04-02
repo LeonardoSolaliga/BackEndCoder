@@ -56,7 +56,7 @@ class ContenedorCartsMongo extends ContainerMongo {
         return productos;
     }
     async eliminarProducto(carid,producto){
-        const cart= await this.getById(Number(carid))
+        const cart= await this.getById(carid)
         if(cart===0){
             return null
         }

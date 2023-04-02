@@ -48,7 +48,24 @@ async function obtenerProducto() {
                 const prodtExiste=CartOficial.productos.find((obj) => obj.Productid === product.Productid)
                 console.log(prodtExiste)
                 if(prodtExiste){
-                    
+                    const prodCart = {
+                        product: product
+                    }
+                    let ArrIndex=CartOficial.productos.indexOf(product.Productid)
+
+                    console.log(CartOficial.productos)
+                    //Borro el producto
+                    await fetch(`/api/carrito/${CartOficial.cartId}/productos/${product.Productid}`,{
+                        method:'DELETE'
+                    })
+                    //Agrego el nuevo con sus cantidades
+                    await fetch(`/api/carrito/${product.Productid}/productos`,{
+                        method:'POST',
+                        body:JSON.stringify(prodCart),
+                        headers:{
+                            "Content-Type":"application/json"
+                        }
+                    })
                 }else{
                     const prodCart = {
                         product: product
@@ -71,7 +88,9 @@ async function obtenerProducto() {
     }
     const finalizarCompra = document.getElementById("Finalizar");
     finalizarCompra.addEventListener("click", async () => {
-        console.log("hola")
+        await fetch(`/api/carrito/finalizar`,{
+            method:'POST'
+        })
     })
 
 }
