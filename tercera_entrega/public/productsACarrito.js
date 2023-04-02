@@ -55,7 +55,6 @@ async function obtenerProducto() {
                     }
                     prodCart.product.cantidad=contador
                     CartOficial.productos.push(prodCart.product)
-                    console.log
                     await fetch(`/api/carrito/${product.Productid}/productos`,{
                         method:'POST',
                         body:JSON.stringify(prodCart),
