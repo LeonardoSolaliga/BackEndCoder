@@ -11,11 +11,18 @@
                     <td style="border: 1px solid black">{{this.title}}</td>
                     <td style="border: 1px solid black">{{this.price}}</td>
                     <td style="border: 1px solid black">{{this.thumbnail}}</td>
+                    <td><button id="botonAdd{{@index}}">Sumar productos</button></td>
+                    <td><button id="botonRes{{@index}}">Restar productos</button></td>
+                    <td><button id="botonAgregar{{@index}}">AGREGAR AL CARRITO</button></td>
+                    <td style="border: 1px solid black"><p id="cont{{@index}}">0</p></td>
+                    
                 </tr>
             {{/each}}
         </table>
+        <button id="Finalizar">FINALIZAR COMPRA</button>
     {{/if}}
     {{#if boole}}
         <h3>No hay productos</h3>
     {{/if}}
 </div>
+

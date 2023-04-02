@@ -21,7 +21,7 @@ function crearErrorNoEsAdmin() {
 
 router.get("/", async (req, res, next) => {
     let products = await APIproduct.getAll();
-    res.json(products);
+    res.send(products);
 })
 router.get("/:id", async (req, res, next) => {
     const { id } = req.params;

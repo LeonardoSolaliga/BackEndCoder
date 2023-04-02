@@ -1,8 +1,8 @@
-/*import nodemailer from 'nodemailer'
 
+
+/*import nodemailer from 'nodemailer'
 const GMAIL_PWD = 'ishujxivijablmcl';
 const GMAIL_USER = "leo.nosecuanto@gmail.com";
-
 const transporter = nodemailer.createTransport({
     service:'gmail',
     port: 587,
@@ -22,13 +22,12 @@ form.addEventListener('submit',async evt=>{
         body:data
     })
     const result = await response.json();
+    console.log(result.payload.email)//solaliga_84@hotasdasd
     if(result.status==="success"){
-        /*await transporter.sendMail({
-            from:'Leo <leo.nosecuanto@gmail.com>',
-            to:"solaliga_84@hotmail.com",
-            subject:'Correo de prueba :)',
-            html:`<div><h1 style="color:red;">se creo una cuenta :)</h1></div>`,
-        })*/
+        await fetch('/api/carrito',{
+            method:'POST',
+            body:data
+        })
         window.location.replace('/login')
     }
     else

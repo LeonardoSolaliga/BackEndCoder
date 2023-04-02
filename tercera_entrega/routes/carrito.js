@@ -26,8 +26,13 @@ router.get("/:id/productos", async (req, res, next) => {
     }
 })
 router.post("/", async (req, res, next) => {
-    let carrito = await APIcart.newCarrito();
-    res.json({ carrito: carrito });
+    const {first_name,last_name,email,password} = req.body;
+    console.log(email)
+    //let carrito = await APIcart.newCarrito(email);
+    res.send({status: "success",message:"carrito creado"});
+})
+router.post("/finalizar", async (req, res, next) => {
+    res.send({status: "success", message: "Compra finalizada"})
 })
 router.post("/:id/productos", async (req, res, next) => {
     const { id } = req.params;
