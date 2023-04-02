@@ -17,16 +17,22 @@ const form = document.getElementById('registerForm');
 form.addEventListener('submit',async evt=>{
     evt.preventDefault();
     const data = new FormData(form);
+    const data2 = new FormData(form);
+    const obj = {};
+    data2.forEach((value,key)=>obj[key]=value)
     const response = await fetch('/api/sessions/register',{
         method:'POST',
         body:data
     })
     const result = await response.json();
-    console.log(result.payload.email)//solaliga_84@hotasdasd
+    console.log(obj)
     if(result.status==="success"){
         await fetch('/api/carrito',{
             method:'POST',
-            body:data
+            body:JSON.stringify(obj),
+            headers:{
+                "Content-Type":"application/json"
+            }
         })
         window.location.replace('/login')
     }

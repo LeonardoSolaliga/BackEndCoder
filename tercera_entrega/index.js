@@ -34,7 +34,7 @@ try{
 app.use(session({
     store: MongoStore.create({
         mongoUrl:"mongodb+srv://CoderUserLeonardo:1234@codercluster38140.dbok9sm.mongodb.net/TerceraEntrega?retryWrites=true&w=majority",
-        ttl:60
+        ttl:60000
     }),
     secret: "aspdiasc903ok1pkc",
     resave: false,

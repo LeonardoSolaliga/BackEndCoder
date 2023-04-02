@@ -10,6 +10,10 @@ router.get("/", async (req, res, next) => {
     let carrito = await APIcart.getAll();
     res.json(carrito);
 })
+router.get("/CarritoEspecifico", async (req, res, next) => {
+    let cart=await APIcart.getById(req.session.user.email);
+    res.send(cart)
+})
 router.get("/:id/productos", async (req, res, next) => {
     const { id } = req.params;
     let cart = await APIcart.getAllProductos(Number(id));
@@ -28,22 +32,22 @@ router.get("/:id/productos", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
     const {first_name,last_name,email,password} = req.body;
     console.log(email)
-    //let carrito = await APIcart.newCarrito(email);
-    res.send({status: "success",message:"carrito creado"});
+    await APIcart.newCarrito(email);
+    res.send({status: "success",message:"carrito creado",});
 })
 router.post("/finalizar", async (req, res, next) => {
     res.send({status: "success", message: "Compra finalizada"})
 })
 router.post("/:id/productos", async (req, res, next) => {
-    const { id } = req.params;
-    const cart = await APIcart.getById(Number(id));
+    //const { id } = req.params;
+    const cart = await APIcart.getById(req.session.user.email);
     const bodyid = req.body;
 
-    let productoAdd = await APIproduct.getById(Number(bodyid.id));
+    let productoAdd = await APIproduct.getById(Number(bodyid.product.Productid));
 
     if (cart && productoAdd) {
-        await APIcart.agregarAlCarrito(Number(id), productoAdd[0]);
-        res.json({ producto: productoAdd })
+        await APIcart.agregarAlCarrito(req.session.user.email, bodyid.product);
+        res.json({ producto: bodyid.product })
     }
     else {
         res.json(400);
