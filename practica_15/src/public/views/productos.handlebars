@@ -1,0 +1,28 @@
+<div>
+    {{#if products.length}}
+        <table>
+            <tr style="border: 1px solid black">
+                <th style="border: 1px solid black">title</th>
+                <th style="border: 1px solid black">price</th>
+                <th style="border: 1px solid black">thumbnail</th>
+            </tr>
+            {{#each products}}
+                <tr style="border: 1px solid black">
+                    <td style="border: 1px solid black">{{this.title}}</td>
+                    <td style="border: 1px solid black">{{this.price}}</td>
+                    <td style="border: 1px solid black">{{this.thumbnail}}</td>
+                    <td><button id="botonAdd{{@index}}">Sumar productos</button></td>
+                    <td><button id="botonRes{{@index}}">Restar productos</button></td>
+                    <td><button id="botonAgregar{{@index}}">AGREGAR AL CARRITO</button></td>
+                    <td style="border: 1px solid black"><p id="cont{{@index}}">1</p></td>
+                    
+                </tr>
+            {{/each}}
+        </table>
+        <button id="Finalizar">FINALIZAR COMPRA</button>
+    {{/if}}
+    {{#if boole}}
+        <h3>No hay productos</h3>
+    {{/if}}
+</div>
+

@@ -26,7 +26,6 @@ router.get('/logout',(req,res)=>{
     }
 })
 router.get('/profile',(req,res)=>{
-    console.log(req.session.user)
     res.render('profile',{user:req.session.user})
 })
 

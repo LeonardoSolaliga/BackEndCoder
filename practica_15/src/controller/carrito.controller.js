@@ -1,34 +1,19 @@
-import { Router } from "express";
 import setPersistance from "../DAOs/index.js"
-import nodemailer from 'nodemailer'
-
-let router = new Router();
 const container = setPersistance('mongo');
 const APIproduct = container.products;
 const APIcart = container.carts;
 
-const GMAIL_PWD = 'ishujxivijablmcl';
-const GMAIL_USER = "leo.nosecuanto@gmail.com";
-
-const transporter = nodemailer.createTransport({
-    service:'gmail',
-    port: 587,
-    auth: {
-        user: GMAIL_USER,
-        pass: GMAIL_PWD
-    }
-});
-
-
-router.get("/", async (req, res, next) => {
+const allCarts=async (req, res, next) => {
     let carrito = await APIcart.getAll();
     res.json(carrito);
-})
-router.get("/CarritoEspecifico", async (req, res, next) => {
+}
+
+const cartEspecifico= async (req, res, next) => {
     let cart=await APIcart.getById(req.session.user.email);
     res.send(cart)
-})
-router.get("/:id/productos", async (req, res, next) => {
+}
+
+const idPorductCart=async (req, res, next) => {
     const { id } = req.params;
     let cart = await APIcart.getAllProductos(Number(id));
     if (cart) {
@@ -42,13 +27,14 @@ router.get("/:id/productos", async (req, res, next) => {
     } else {
         res.json(400);
     }
-})
-router.post("/", async (req, res, next) => {
+}
+
+const crearCart=async (req, res, next) => {
     const {first_name,last_name,email,password} = req.body;
     await APIcart.newCarrito(email);
     res.send({status: "success",message:"carrito creado",});
-})
-router.post("/finalizar", async (req, res, next) => {
+}
+const finalizarCompra=async (req, res, next) => {
     let cart=await APIcart.getById(req.session.user.email)
     let contenedor = ``;
     let calculadora=0;
@@ -70,9 +56,8 @@ router.post("/finalizar", async (req, res, next) => {
         html:`${contenedor}`,
     })
     res.send({status: "success", message: "Compra finalizada"})
-})
-router.post("/:id/productos", async (req, res, next) => {
-    //const { id } = req.params;
+}
+const agregarAlCarrito=async (req, res, next) => {
     const cart = await APIcart.getById(req.session.user.email);
     const bodyid = req.body;
 
@@ -85,8 +70,8 @@ router.post("/:id/productos", async (req, res, next) => {
     else {
         res.json(400);
     }
-})
-router.delete("/:id", async (req, res, next) => {
+}
+const eliminarCarrito=async (req, res, next) => {
     let { id } = req.params;
     let cartEliminado = await APIcart.getById(Number(id));
     await APIcart.deleteById(Number(id));
@@ -96,9 +81,8 @@ router.delete("/:id", async (req, res, next) => {
     else {
         res.json({ error: "error", description: "carrito a eliminar no encontrado" });
     }
-})
-
-router.delete("/:id/productos/:id_prod", async (req, res, next) => {
+}
+const eliminarProductoDelCarrito=async (req, res, next) => {
     let {id} = req.params;
     let {id_prod} = req.params;
     const cart = await APIcart.getById(id);
@@ -111,6 +95,16 @@ router.delete("/:id/productos/:id_prod", async (req, res, next) => {
     else {
         res.json(400);
     }
-})
+}
 
-export default router;
+export default{
+    allCarts,
+    cartEspecifico,
+    idPorductCart,
+    crearCart,
+    finalizarCompra,
+    agregarAlCarrito,
+    eliminarCarrito,
+    eliminarProductoDelCarrito
+
+}

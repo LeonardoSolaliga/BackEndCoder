@@ -1,11 +1,13 @@
-import { Router } from "express";
-import passport from "passport";
+import nodemailer from 'nodemailer'
 import userModel from "../Model/user.js"
 import { createHash} from "../utils.js";
+import Mailer from "../services/nodemailer.js"
 
-const router = Router();
 
-router.post('/register',async(req,res)=>{
+
+const register=async(req,res)=>{
+    const file=req.file;
+    if (!file) return res.status(500).send({status:"error",error:"error al cargar el archivo"});
     const {first_name,last_name,email,password} = req.body;
     if(!first_name||!email||!password) return res.status(400).send({status:"error",error:"Valores incompletos"});
     const exists  = await userModel.findOne({email});
@@ -15,31 +17,37 @@ router.post('/register',async(req,res)=>{
         first_name,
         last_name,
         email,
-        password:hashedPassword
+        password:hashedPassword,
+        avatar:`${req.protocol}://${req.hostname}:8080/img/${file.filename}`
     })
+    await Mailer.sendMail({
+        from:'Leo <leo.nosecuanto@gmail.com>',
+        to:email,
+        subject:'Correo de prueba :)',
+        html:`<div><h1 style="color:red;">se creo una cuenta :)</h1></div>`,
+    })
+
     res.send({status:"success",payload:result})
     
-})
-
-router.post('/login',passport.authenticate('login',{failureRedirect:'/api/sessions/loginFail',failureMessage:true}),async(req,res)=>{
+}
+const login=async(req,res)=>{
     const user=req.user;
     req.session.user = {
         id: user._id,
         nombre:user.first_name,
         email:user.email,
-        role:user.role
+        role:user.role,
+        avatar:user.avatar
     }
     res.send({status:"success",message:"Logueado :)"})
-})
+}
 
-router.get('/loginFail',async(req,res)=>{
+const loginFail=async(req,res)=>{
     if(req.session.messages.length>4) return res.status(400).send({message:"Bloquea los intentos"})
     res.status(400).send({status:"error",error:"error de autentificacion"})
-})
-
-router.get('/github',passport.authenticate('github'),(req,res)=>{})
-
-router.get('/githubcallback',passport.authenticate('github'),(req,res)=>{
+}
+const logGithub=(req,res)=>{}
+const loginGitHub=(req,res)=>{
     const user=req.user;
     req.session.user = {
         id: user._id,
@@ -48,6 +56,11 @@ router.get('/githubcallback',passport.authenticate('github'),(req,res)=>{
         role:user.role
     }
     res.send({status:"success",message:"Logueado con github :)"})
-})
+}
 
-export default router;
+export default{
+    register,
+    login,
+    loginFail,
+    loginGitHub
+}
