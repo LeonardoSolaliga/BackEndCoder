@@ -62,5 +62,6 @@ export default{
     register,
     login,
     loginFail,
+    logGithub,
     loginGitHub
 }

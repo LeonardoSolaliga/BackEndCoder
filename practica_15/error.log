@@ -1,0 +1,10 @@
+{"level":"error","message":"GET en / - 13:29:00"}
+{"level":"error","message":"GET en /login - 13:29:00"}
+{"level":"error","message":"GET en /favicon.ico - 13:29:01"}
+{"level":"error","message":"GET en /register - 13:29:04"}
+{"level":"error","message":"GET en /login - 13:29:05"}
+{"level":"error","message":"POST en /api/sessions/login - 13:29:09"}
+{"level":"error","message":"GET en / - 13:29:10"}
+{"level":"error","message":"GET en /api/products - 13:29:12"}
+{"level":"error","message":"GET en /api/carrito/CarritoEspecifico - 13:29:13"}
+{"level":"error","message":"GET en /profile - 13:29:22"}
