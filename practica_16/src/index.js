@@ -25,7 +25,7 @@ const io = new IOServer(httpServer)
 
 mongoose.set('strictQuery', true);
 try{
-    mongoose.connect("mongodb+srv://CoderUserLeonardo:1234@codercluster38140.dbok9sm.mongodb.net/TerceraEntrega?retryWrites=true&w=majority",error=>{
+    mongoose.connect("mongodb+srv://CoderUserLeonardo:1234@codercluster38140.dbok9sm.mongodb.net/Practica16?retryWrites=true&w=majority",error=>{
         if(error) console.log(error)
         else console.log("base conectada")
 })
@@ -34,7 +34,7 @@ try{
 }
 app.use(session({
     store: MongoStore.create({
-        mongoUrl:"mongodb+srv://CoderUserLeonardo:1234@codercluster38140.dbok9sm.mongodb.net/TerceraEntrega?retryWrites=true&w=majority",
+        mongoUrl:"mongodb+srv://CoderUserLeonardo:1234@codercluster38140.dbok9sm.mongodb.net/Practica16?retryWrites=true&w=majority",
         ttl:60000
     }),
     secret: "aspdiasc903ok1pkc",
@@ -59,7 +59,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(addLogger);
 
 
-httpServer.listen(config.PORT.URL,()=>console.log("server abierto"))
+httpServer.listen(8080,()=>console.log("server abierto"))
 
 
 
