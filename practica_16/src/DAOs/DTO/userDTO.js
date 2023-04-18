@@ -1,6 +1,6 @@
 class UserDTO {
 
-    getuserDTO = (user) =>{
+    static getuserDTO = (user) =>{
         return  {
             id: user._id,
             nombre:user.first_name,

@@ -53,3 +53,19 @@
 {"level":"error","message":"GET en / - 10:54:25"}
 {"level":"error","message":"GET en /api/products - 10:54:27"}
 {"level":"error","message":"GET en /api/carrito/CarritoEspecifico - 10:54:28"}
+{"level":"error","message":"GET en / - 11:00:31"}
+{"level":"error","message":"GET en / - 11:00:43"}
+{"level":"error","message":"GET en /api/products - 11:00:45"}
+{"level":"error","message":"GET en /api/carrito/CarritoEspecifico - 11:00:46"}
+{"level":"error","message":"GET en /logout - 11:00:49"}
+{"level":"error","message":"GET en / - 11:00:49"}
+{"level":"error","message":"GET en /login - 11:00:49"}
+{"level":"warning","message":"warning"}
+{"level":"error","message":"POST en /api/sessions/login - 11:00:58"}
+{"level":"error","message":"GET en / - 11:00:59"}
+{"level":"error","message":"GET en /api/products - 11:01:00"}
+{"level":"error","message":"GET en /api/carrito/CarritoEspecifico - 11:01:01"}
+{"level":"error","message":"GET en /logout - 11:01:07"}
+{"level":"error","message":"GET en / - 11:01:08"}
+{"level":"error","message":"GET en /login - 11:01:08"}
+{"level":"warning","message":"warning"}
