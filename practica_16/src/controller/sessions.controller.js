@@ -3,7 +3,9 @@
 import setPersistance from "../DAOs/index.js"
 import { createHash} from "../utils.js";
 import Mailer from "../services/nodemailer.js"
+import userDTO from "../DAOs/DTO/userDTO.js"
 
+const usuarioDTO= new userDTO();
 const container = setPersistance('mongo');
 const APIuser = container.userService;
 
@@ -37,13 +39,7 @@ const register=async(req,res)=>{
 }
 const login=async(req,res)=>{
     const user=req.user;
-    req.session.user = {
-        id: user._id,
-        nombre:user.first_name,
-        email:user.email,
-        role:user.role,
-        avatar:user.avatar
-    }
+    req.session.user = usuarioDTO.getuserDTO(user)
     res.send({status:"success",message:"Logueado :)"})
 }
 
@@ -54,12 +50,7 @@ const loginFail=async(req,res)=>{
 const logGithub=(req,res)=>{}
 const loginGitHub=(req,res)=>{
     const user=req.user;
-    req.session.user = {
-        id: user._id,
-        nombre:user.first_name,
-        email:user.email,
-        role:user.role
-    }
+    req.session.user = usuarioDTO.getuserDTO(user)
     res.send({status:"success",message:"Logueado con github :)"})
 }
 
