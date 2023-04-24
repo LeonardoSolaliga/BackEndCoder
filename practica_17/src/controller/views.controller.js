@@ -29,7 +29,7 @@ const inicio=async(req, res)=>{
     const page=req.query.page|| 1;
     const ProductosPagination=await APIproducts.getProducts({},page);
     const Productos=ProductosPagination.docs;
-    console.log(Productos)
+    //console.log(Productos)
     const paginationData={
         hasPrevPage:ProductosPagination.hasPrevPage,
         hasNextPage:ProductosPagination.hasNextPage,
@@ -47,10 +47,10 @@ const cart=async(req,res)=>{
     const cartId=req.session.user.cart
     const cart=await APIcart.getCartById(cartId,{populate:true})
     const name=req.session.user.nombre
-    console.log(cart)
-    const Productos  = cart.products.map(prod=>prod._id);
-    console.log(Productos)
-    res.render('carts',{Productos,name})
+    console.log(cart.products)
+    //const Productos  = cart.products.map(prod=>prod._id);
+    //console.log(Productos)
+    res.render('carts',{Productos:cart.products,name})
 }
 
 export default{

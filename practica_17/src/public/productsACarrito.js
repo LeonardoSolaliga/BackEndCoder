@@ -130,6 +130,7 @@ async function obtenerCantidad() {
         });
         let botonAgregar=document.getElementById(`botonAgregar${indice}`);
         botonAgregar.addEventListener("click",async(e)=>{
+            e.preventDefault()
             const productonuevo={_id:product._id,quantity:contador}
             console.log(productonuevo)
             await fetch(`/api/carrito/${product.code}/productos`,{
@@ -139,7 +140,7 @@ async function obtenerCantidad() {
                     "Content-Type":"application/json"
                 }
             })
-            window.location.replace('/carts')
+            //window.location.replace('/carts')
         })
     })
 

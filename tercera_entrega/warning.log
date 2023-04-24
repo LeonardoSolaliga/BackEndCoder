@@ -559,3 +559,10 @@
 {"level":"error","message":"GET en /api/products - 16:48:45"}
 {"level":"error","message":"GET en /api/carrito/CarritoEspecifico - 16:48:46"}
 {"level":"error","message":"POST en /api/carrito/finalizar - 16:48:57"}
+{"level":"error","message":"GET en / - 11:41:06"}
+{"level":"error","message":"GET en /login - 11:41:07"}
+{"level":"warning","message":"warning"}
+{"level":"error","message":"POST en /api/sessions/login - 11:41:22"}
+{"level":"error","message":"GET en / - 11:41:24"}
+{"level":"error","message":"GET en /api/products - 11:41:26"}
+{"level":"error","message":"GET en /api/carrito/CarritoEspecifico - 11:41:26"}
