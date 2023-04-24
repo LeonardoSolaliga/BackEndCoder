@@ -13,5 +13,8 @@ export default class UserDao {
     createUser = (user) =>{
         return userModel.create(user);
     }
+    DropUser=()=>{
+        return userModel.collection.drop()
+    }
 
 }

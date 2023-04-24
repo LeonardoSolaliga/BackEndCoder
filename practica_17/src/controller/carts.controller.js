@@ -1,35 +1,35 @@
-import setPersistance from "../DAOs/index.js"
-const container = setPersistance('mongo');
-const APIcart = container.carts;
+import {cartsService} from '../DAOs/index.js'
 
 
 const agregarAlCarrito=async(req,res)=>{
     const user=req.session.user;
     const prdct=req.body;
-    const cart=await APIcart.getCartById(user.cart)
-    const exists=cart.products.some(prod=>prod._id===prdct._id)
+    const cart=await cartsService.getCartById(user.cart)
+    const exists=cart.products.some(prod=>prod._id.toString()===prdct._id.toString())
     console.log(exists)
     if (exists){
-        let newCart=cart.products.filter(elem=>elem._id!=prdct._id)
-        //console.log(newCart)
-        await APIcart.updateCart(cart._id,{products:newCart})
-
-        cart.products.push(prdct)
-        //console.log(cart.products)
-        await APIcart.updateCart(cart._id,{products:cart.products})
-        res.send({status: "success",message:"carrito agregado perro"})
+        let newCart=cart.products.filter(elem=>elem._id.toString()!=prdct._id.toString())
+        await cartsService.updateCart(cart._id,{products:newCart})
+        let Carrito=await cartsService.getCartById(user.cart)
+        Carrito.products.push(prdct)
+        await cartsService.updateCart(cart._id,{products:Carrito.products})
+        return res.send({status: "success",message:"carrito agregado perro"})
 
     }else{
-        console.log(prdct)
         cart.products.push(prdct)
-        console.log(cart.products)
-        console.log(cart)
-        await APIcart.updateCart(cart._id,{products:cart.products});
-        res.send({status: "success",message:"carrito agregado perro"})
+        await cartsService.updateCart(cart._id,{products:cart.products});
+        return  res.send({status: "success",message:"carrito agregado perro"})
     }
+    //res.send({status: "success",message:"carrito agregado perro"})
+}
+const finalizarCompra=async(req,res)=>{
+    /*
+    REALIZAR FINALIZAR COMPRA JUNTO MAILING
+    */
 }
 
 
 export default {
-    agregarAlCarrito
+    agregarAlCarrito,
+    finalizarCompra
 }

@@ -1,12 +1,8 @@
-import setPersistance from "../DAOs/index.js"
-const container = setPersistance('mongo');
-const APIproduct = container.products;
+import {productsService} from '../DAOs/index.js'
 
 const allProducts= async (req, res, next) => {
-    const page=req.query.page|| 1;
-    const ProductosPagination=await APIproduct.getProducts({},page);
-    const Productos=await ProductosPagination.docs;
-    res.send(Productos);
+    const videogames = await productsService.getProducts();
+    res.send({status:"success",payload:videogames})
 }
 
 const idProducts= async (req, res, next) => {
@@ -19,7 +15,7 @@ const idProducts= async (req, res, next) => {
         res.json({ error: "producto no encontrado" });
     }*/
     const page=req.query.page;
-    const ProductosPagination=await APIproduct.getProducts({},page);
+    const ProductosPagination=await productsService.getProducts({},page);
     const Productos=await ProductosPagination.docs;
     res.send(Productos);
 }
@@ -37,7 +33,7 @@ const postProducts=async (req, res, next) => {
         category,
         image:`${req.protocol}://${req.hostname}:8080/img/${file.filename}`
     }
-    const result = await APIproduct.createProducts(product)
+    const result = await productsService.createProducts(product)
     res.send({status:"success",payload:result})
 }
 
@@ -46,7 +42,7 @@ const editProduct=async (req, res, next) => {
     let { title, price, thumbnail, stock } = req.body;
     if (title && price && thumbnail) {
         let productEdit = { id: Number(id), title: title, price: Number(price), thumbnail: thumbnail, stock: Number(stock) }
-        await APIproduct.actualizar(productEdit);
+        await productsService.actualizar(productEdit);
         res.json({ product: productEdit })
     }
     else {
@@ -57,8 +53,8 @@ const editProduct=async (req, res, next) => {
 
 const deleteProduct=async (req, res, next) => {
     let { id } = req.params;
-    let productEliminado = await APIproduct.getById(Number(id));
-    await APIproduct.deleteById(Number(id));
+    let productEliminado = await productsService.getById(Number(id));
+    await productsService.deleteById(Number(id));
     res.json({ deletProduct: productEliminado })
 }
 
