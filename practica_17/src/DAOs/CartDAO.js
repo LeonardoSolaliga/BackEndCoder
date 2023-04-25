@@ -1,4 +1,4 @@
-import cartModel from "./MongoDB/mongocarts.js";
+import {cartModel} from "./MongoDB/mongocarts.js";
 
 
 export default class CartsDAO {

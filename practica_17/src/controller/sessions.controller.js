@@ -15,8 +15,7 @@ const register = async (req, res) => {
     //const exists  = await userModel.findOne({email});
     if (exists) return res.status(400).send({ status: "error", error: "El usuario ya existe" });
     const hashedPassword = await createHash(password);
-    const cart = await cartsService.createCart();
-    console.log(cart)
+    let cart = await cartsService.createCart();
     const result = await usersService.createUser({ first_name, last_name, email, password: hashedPassword, cart: cart._id, avatar: `${req.protocol}://${req.hostname}:8080/img/${file.filename}` })
     /*const result = await userModel.create({
         first_name,
@@ -32,7 +31,7 @@ const register = async (req, res) => {
         html: `<div><h1 style="color:red;">se creo una cuenta :)</h1></div>`,
     })
 
-    res.send({ status: "success", payload: result })
+    res.send({ status: "success", payload: result,message:"Registrado" })
 }
 const login = async (req, res) => {
     const user = req.user;

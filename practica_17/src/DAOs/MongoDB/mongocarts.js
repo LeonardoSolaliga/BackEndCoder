@@ -1,8 +1,8 @@
 
 import mongoose from "mongoose";
 //import ContainerMongo from "./Mongodb.js"
+const collection = "carts";
 const cartSchema = new mongoose.Schema({
-
     products:[
         {
             _id: {
@@ -17,8 +17,8 @@ const cartSchema = new mongoose.Schema({
 },{
     timestamps:true
 });
-const cartModel  = mongoose.model('carts',cartSchema)
-export default cartModel;
+
+export const cartModel  = mongoose.model(collection,cartSchema)
 
 /*class ContenedorCartsMongo extends ContainerMongo {
     constructor() {

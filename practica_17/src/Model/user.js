@@ -20,7 +20,7 @@ const schema = new mongoose.Schema({
         type:String,
         default:'user'
     },
-    cart: {
+    cart:{
         type: mongoose.SchemaTypes.ObjectId,
         ref:'carts'
     },
