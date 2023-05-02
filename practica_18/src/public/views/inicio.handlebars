@@ -1,0 +1,38 @@
+<div>
+    {{#if Productos.length}}
+        <table>
+            <tr style="border: 1px solid black">
+                <th style="border: 1px solid black">title</th>
+                <th style="border: 1px solid black">price</th>
+                <th style="border: 1px solid black">thumbnail</th>
+            </tr>
+            {{#each Productos}}
+                <tr style="border: 1px solid black">
+                    <td style="border: 1px solid black">{{this.title}}</td>
+                    <td style="border: 1px solid black">{{this.price}}</td>
+                    <td style="border: 1px solid black"><img src={{this.image}}></td>
+                    <td><button id="botonAdd{{@index}}">Sumar productos</button></td>
+                    <td><button id="botonRes{{@index}}">Restar productos</button></td>
+                    <td><button id="botonAgregar{{@index}}">AGREGAR AL CARRITO</button></td>
+                    <td style="border: 1px solid black"><p id="cont{{@index}}">1</p></td>
+                    
+                </tr>
+            {{/each}}
+        </table>
+        <div>
+            {{#if paginationData.hasPrevPage}}
+            <a href="http://localhost:8080?page={{paginationData.prevPage}}"><button>Anterior</button></a>
+            {{/if}}
+            <div id="page">{{paginationData.page}}</div>
+            {{#if paginationData.hasNextPage}}
+            <a href="http://localhost:8080?page={{paginationData.nextPage}}"><button>Siguiente</button></a>
+            {{/if}}
+        </div>
+        <button id="Finalizar">FINALIZAR COMPRA</button>
+
+    {{else}}
+        <h3>No hay productos</h3>
+    {{/if}}
+</div>
+<script src="../productsACarrito.js"></script>
+

@@ -1,0 +1,17 @@
+
+<div>
+    {{#if Productos}}
+    <h1>Hola {{name}}, éste es tu carrito actual</h1>
+    {{#each Productos}}
+    <div>
+        <p>Titulo: {{this._id.title}}</p>
+        <p>Precio: {{this._id.price}}</p>
+        <p>Cantidad: {{this.quantity}}</p>
+    </div>
+    {{/each}}
+    <a href="/">Seguir comprando</a>
+    {{else}}
+    <h1>Aún no hay juegos en tu carrito</h1>
+    <a href="/">Comienza a comprar videojuegos :)</a>
+    {{/if}}
+</div>
